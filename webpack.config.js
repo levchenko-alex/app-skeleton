@@ -25,7 +25,7 @@ module.exports = {
       },
     ]
   },
-  plugins: [ // Check gulp/webpack.js for build specific plugins
+  plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, '/src/index.html'),
       filename: 'index.html',
@@ -33,7 +33,6 @@ module.exports = {
     }),
   ],
   resolve: {
-    // Add `.ts` and `.tsx` as a resolvable extension.
     extensions: ['.ts', '.tsx', '.js']
   },
 };
