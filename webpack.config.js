@@ -1,25 +1,32 @@
 var path = require('path');
 var webpack = require('webpack');
+var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
-  entry: [
-    'webpack-hot-middleware/client',
-    './src/index'
-  ],
-  output: {
-    path: path.join(__dirname, 'dist'),
-    filename: 'bundle.js',
-    publicPath: '/static/'
+  entry: {
+    app: path.join(__dirname, '/src/index.js'),
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ],
+  output: {
+    filename: 'bundle.js',
+    path: path.join(__dirname, '/dist/'),
+  },
   module: {
     loaders: [{
       test: /\.js$/,
-      loaders: ['react-hot', 'babel'],
+      loaders: ['babel'],
       include: path.join(__dirname, 'src')
     }]
-  }
+  },
+  
+  plugins: [
+    /**
+    * HtmlWebpackPlugin will make sure out JavaScript files are being called
+    * from within our index.html
+    */
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, '/src/index.html'),
+      filename: 'index.html',
+      inject: 'body',
+    }),
+  ],
 };
