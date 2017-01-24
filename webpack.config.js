@@ -1,32 +1,39 @@
-var path = require('path');
-var webpack = require('webpack');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
+  cache: true,
   entry: {
-    app: path.join(__dirname, '/src/index.js'),
+    main: './src/index.tsx',
   },
   output: {
-    filename: 'bundle.js',
-    path: path.join(__dirname, '/dist/'),
+    path: path.resolve(__dirname, './dist/'),
+    filename: '[name].js',
+    chunkFilename: '[chunkhash].js'
   },
   module: {
-    loaders: [{
-      test: /\.js$/,
-      loaders: ['babel'],
-      include: path.join(__dirname, 'src')
-    }]
+    rules: [
+      {
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'ts-loader'
+          }
+        ]
+      },
+    ]
   },
-  
-  plugins: [
-    /**
-    * HtmlWebpackPlugin will make sure out JavaScript files are being called
-    * from within our index.html
-    */
+  plugins: [ // Check gulp/webpack.js for build specific plugins
     new HtmlWebpackPlugin({
       template: path.join(__dirname, '/src/index.html'),
       filename: 'index.html',
       inject: 'body',
     }),
   ],
+  resolve: {
+    // Add `.ts` and `.tsx` as a resolvable extension.
+    extensions: ['.ts', '.tsx', '.js']
+  },
 };
