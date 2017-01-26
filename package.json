@@ -5,7 +5,12 @@
   "devDependencies": {
     "@types/react": "^0.14.41",
     "@types/react-dom": "^0.14.18",
+    "css-loader": "^0.26.1",
     "html-webpack-plugin": "^2.26.0",
+    "node-sass": "^4.3.0",
+    "postcss-loader": "^1.2.2",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
     "ts-loader": "^2.0.0",
     "typescript": "^2.0.3",
     "webpack": "^2.2.0",
