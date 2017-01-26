@@ -1,6 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+
+let loaders = [
+  'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]',
+  'sass-loader',
+]
 
 module.exports = {
   cache: true,
@@ -24,14 +30,9 @@ module.exports = {
         ]
       },
       {
-      test: /\.scss$/,
-      exclude: /node_modules/,
-      use: [
-        'style-loader',
-        'css-loader',
-        'sass-loader?sourceMap',
-      ],
-    }
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract({loader: loaders }),
+      }
     ]
   },
   plugins: [
@@ -40,6 +41,7 @@ module.exports = {
       filename: 'index.html',
       inject: 'body',
     }),
+    new ExtractTextPlugin('bundle.css')
   ],
   resolve: {
     extensions: ['.ts', '.tsx', '.js']

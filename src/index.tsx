@@ -3,6 +3,5 @@ import * as ReactDOM from 'react-dom';
 
 import { App } from './components/app';
 
-import './scss/app.scss';
 
 ReactDOM.render(<App />, document.getElementById('root'));
